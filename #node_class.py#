@@ -1,0 +1,19 @@
+class LINK:
+    def __init__(self):
+        self.LINK_NIN_1 = 0
+        self.LINK_NIN_2 = 0
+        self.LINK_TYPE = 0
+
+    def setLINK(L1,L2,LT):
+        self.LINK_NIN_1 = L1
+        self.LINK_NIN_2 = L2
+        self.LINK_TYPE = LT
+
+    #Must write method to querry database and use setLINK to move a link into memory
+
+class Node:
+    def __init__(NIN,PIN,NAME,LINKS):
+        self.NIN = NIN
+        self.PIN = PIN
+        self.NAME = NAME
+        self.LINKS = LINKS

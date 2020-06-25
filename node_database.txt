@@ -1,21 +1,14 @@
 CREATE TABLE NODE (
 --Identification Sections
-  "NIN"        INTEGER  PRIMARY KEY; 
---Utility Sections
-  "PIN"        INTEGER  NOT NULL;
-  "NAME"       TINYTEXT;
-  "FILE"       VARCHAR(4096); --Max length for filenames in linux
-  "NOTE"       MEDIUMTEXT;
-
-  "HYPERLINK"  MEDIUMTEXT;
-  "IMAGE_LINK" MEDIUMTEXT;
+  "NIN"        INTEGER,
+  "PIN"        INTEGER  NOT NULL,
+  "NAME"       TINYTEXT,
 
   PRIMARY KEY (NIN)
 );
 
 --Creates Table to Describe links
 CREATE TABLE LINK (
-  "LINK_ID"    INTEGER  NOT NULL  PRIMARY KEY;
   "LINK_ONE"   INTEGER  NOT NULL;
   "LINK_TWO"   INTEGER  NOT NULL;
   "LINK_TYPE"  MEDIUMINTEGER  NOT NULL;
