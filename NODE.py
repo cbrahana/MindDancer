@@ -6,18 +6,18 @@ Creted on Sat Jun  6 14:01:23 2020
 @author: collinbrahana
 """
 #Necessary imports here
-from NODEdata import NODEdata, LINKdata
+from NODEdata import NODEdata
 import uuid
 import ProjectErrors
-import sqlite3
 
 class Node: 
     def __init__(self,tgt,tgt_type):
-        inDB = 0#bool check if given UUID exists in database
-        if inDB == 1:
-            self.NODE = NODEdata(retreiveNODE(1,1))
-        else:
-            self.NODE = NODEdata(0,0,0,"","",[])
+#        inDB = 0#bool check if given UUID exists in database
+#        if inDB == 1:
+#            self.NODE = NODEdata(retreiveNODE(1,1))
+#        else:
+#            self.NODE = NODEdata(0,0,0,"","",[])
+        pass
         
     def AddLinks(self,LINK): #N0000004 N0000005
         self.NODE.LINKS.append(LINK)
@@ -51,6 +51,6 @@ class Node:
     def updateDATABASE(self):
         pass
     
-    def retreiveNODE(self,tgt,tgt_type):
-        pass
+#    def retreiveNODE(self,tgt,tgt_type):
+#        pass
 

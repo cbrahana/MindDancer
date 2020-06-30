@@ -10,7 +10,6 @@ from dataclasses import dataclass
 @dataclass
 class NODEdata:
     NIN: int
-    PIN: int
     NODETYPE: int
     NAME: str
     DATA: str

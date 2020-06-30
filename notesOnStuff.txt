@@ -21,3 +21,9 @@ N0000008: LINKTYPES  will be positive and negative integers. That means that a
 forward LINKTYPE is positive, and a reverse LINKTYPE is negative. 
 N0000009: I really should make the location of the current working database file
 part of main, or as a config, or something!
+N0000010R: PIN is being deleted as an object for consideration. Instead, the
+ideas behind the tagging system will be extended, so "project" nodes connect
+to every node in a project invisibly.
+N0000011: I really do need to validate that retriveNODE either returns an error
+or a table member. I'm not quite sure why it isn't working, but it is important
+for testing's sake.

@@ -14,3 +14,11 @@ class IDENTIFIERassignmentERROR(ERROR):
           This is catastrophic. Don't even think it. If you are attempting
           something allowable under the datastructure design, try doing
           it differently to avoid database conflicts."""
+
+class DATABASEretrivalERROR(ERROR):
+    def __init__(self):
+        return """That NIN could not be found, or something else went wrong in the database."""
+
+class DATABASEexportERROR(ERROR):
+    def __init__(self):
+        return """Commit to Database failed for some reason."""

@@ -7,16 +7,16 @@ Created on Tue Jun 30 11:04:53 2020
 """
 
 import sqlite3
+import ProjectErrors
 
-def createDATABASE(tgt_database):
+def createTABLES(tgt_database):
     conn = sqlite3.connect(tgt_database) #N0000009
     c = conn.cursor()
 
     str_two = """CREATE TABLE IF NOT EXISTS NODE (
     "NIN"        INTEGER,
-    "PIN"        INTEGER  NOT NULL,
-    "NAME"       TINYTEXT,
     "NODETYPE"   INTEGER  NOT NULL,
+    "NAME"       TINYTEXT,
     "DATA"       BLOB,
 
     PRIMARY KEY (NIN)
@@ -32,11 +32,15 @@ def createDATABASE(tgt_database):
     """
     
     c.executescript(str_two)
-    return conn
+    conn.commit()
+    return None
+
+def dropTABLES(tgt_database):
+    pass
 
 class interfaceDATABASEnode:
     def __init__(self,tgt_database_file):
-        createDATABASE(tgt_database_file)
+        #createTABLES(tgt_database_file)
         self.tgt_database_file = tgt_database_file
         self.connection = sqlite3.connect(self.tgt_database_file)
         self.c = self.connection.cursor()
@@ -49,22 +53,27 @@ class interfaceDATABASEnode:
         else:
             return 1
 
-    def exportNODE(self,NIN,PIN,NODETYPE,NAME,DATA):
-        t = (NIN,PIN,NODETYPE,NAME,DATA)
-        self.c.execute("INSERT INTO NODE VALUES (?,?,?,?,?)",t)
+    def exportNODE(self,NIN,NODETYPE,NAME,DATA):
+        t = (NIN,NODETYPE,NAME,DATA)
+        self.c.execute("INSERT INTO NODE VALUES (?,?,?,?)",t)
         self.connection.commit()
-        return 0
+        if self.checkNODEexistance(NIN) != 1:
+            raise ProjectErrors.DATABASEexportError
+        return None
     
+    def fetchNODE(self,tgt_NIN):
+        t = (tgt_NIN,)
+        output = self.c.execute("SELECT * FROM NODE WHERE NIN=?",t) #N0000011
+        return output.fetchone()
+           
     def closeDATABASE(self):
         self.connection.close()
         return None
     
 
-faust = interfaceDATABASEnode("testdatabase.db")
-#faust.closeDATABASE()
-#print(faust.exportNODE(1,0,0,"Hello","HiThere"))
-#print(faust.checkNODEexistance(0))
 
 
-faust.closeDATABASE()
+
+
+
 
