@@ -19,3 +19,5 @@ Make the process similar to changing the NIN, where it can only be done by a
 database operation or by doing it to a blank PIN.
 N0000008: LINKTYPES  will be positive and negative integers. That means that a
 forward LINKTYPE is positive, and a reverse LINKTYPE is negative. 
+N0000009: I really should make the location of the current working database file
+part of main, or as a config, or something!
