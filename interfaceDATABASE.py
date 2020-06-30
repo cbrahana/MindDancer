@@ -33,9 +33,10 @@ def createDATABASE(tgt_database):
     
     c.executescript(str_two)
     return conn
-#%%
+
 class interfaceDATABASEnode:
     def __init__(self,tgt_database_file):
+        createDATABASE(tgt_database_file)
         self.tgt_database_file = tgt_database_file
         self.connection = sqlite3.connect(self.tgt_database_file)
         self.c = self.connection.cursor()
@@ -54,8 +55,16 @@ class interfaceDATABASEnode:
         self.connection.commit()
         return 0
     
+    def closeDATABASE(self):
+        self.connection.close()
+        return None
+    
 
 faust = interfaceDATABASEnode("testdatabase.db")
-print(faust.exportNODE(0,0,0,"Hello","HiThere"))
+#faust.closeDATABASE()
+#print(faust.exportNODE(1,0,0,"Hello","HiThere"))
 #print(faust.checkNODEexistance(0))
-#%%
+
+
+faust.closeDATABASE()
+
