@@ -1,8 +1,8 @@
-N0000001: NIN should not come preassigned in a node; if we are importing a node
+N0000001*: NIN should not come preassigned in a node; if we are importing a node
 from the database, than this would be catastrophic. Instead, when we create a 
 node, it has a None NIN, or one is specified, but NIN is not changable from 
 NODE, and must be done externally.
-N0000002: We are allowed to set everything except links like this, because they
+N0000002*: We are allowed to set everything except links like this, because they
 are immutable. links is mutable, so must be set specifically according to 
 https://stackoverflow.com/questions/2681243/how-should-i-declare-default-values-for-instance-variables-in-python
 N0000003: UpdateNode should write any changes to the node into the database, in
@@ -11,3 +11,9 @@ N0000004: NewLink should create a new link of the type specified in the local
 LINKS list, in the DATABASE, inverted in  the database, and inverted in the 
 partner Node.
 N0000005: Link tuple should look like (NIN_One,NIN_Two,LINKTYPE)
+N0000006: This should only be called if we are creating a new node that isn't 
+in the database. Otherwise, it's off limits.  
+N0000007: Changing the PIN should only really be done if the PIN isn't set yet.
+If it is set, than it could mess up a bunch of stuff with access permissions. 
+Make the process similar to changing the NIN, where it can only be done by a
+database operation or by doing it to a blank PIN.
