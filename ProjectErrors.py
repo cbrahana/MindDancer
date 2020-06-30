@@ -9,7 +9,8 @@ class ERROR(Exception):
     pass
 
 class IDENTIFIERassignmentERROR(ERROR):
-    print("""Attempted to create new identifier for node that already had one.
+    def __init__(self):
+        return """Attempted to create new identifier for node that already had one.
           This is catastrophic. Don't even think it. If you are attempting
           something allowable under the datastructure design, try doing
-          it differently to avoid database conflicts.""")
+          it differently to avoid database conflicts."""
