@@ -2,7 +2,6 @@
 
 CREATE TABLE IF NOT EXISTS NODE (
     "NIN"        INTEGER,
-    "PIN"        INTEGER  NOT NULL,
     "NAME"       TINYTEXT,
     "NODETYPE"   INTEGER  NOT NULL,
     "DATA"       BLOB,

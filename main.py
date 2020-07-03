@@ -15,3 +15,12 @@ import NODE
 #Initilization Variables (MOVE TO INIT FILE)
 current_database = "MindDancer.db"
 
+
+#Dictonary of Nodes
+NODEdictionary = {}
+
+def makeNODE():
+    pass
+
+#NODEdictonary[NODE.Node.returnNIN()]
+

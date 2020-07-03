@@ -35,7 +35,7 @@ def createTABLES(tgt_database):
     conn.commit()
     return None
 
-def dropTABLES(tgt_database):
+def dropTABLES(tgt_database): #DEBUG ONLY, EXTREMELY RISKY, DO NOT USE WITHOUT BACKUP OF DATABASE!
     pass
 
 class interfaceDATABASEnode:
@@ -69,6 +69,8 @@ class interfaceDATABASEnode:
     def closeDATABASE(self):
         self.connection.close()
         return None
+    
+    #Do Update Functions at some point
     
 
 

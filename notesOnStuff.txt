@@ -13,7 +13,7 @@ partner Node.
 N0000005: Link tuple should look like (NIN_One,NIN_Two,LINKTYPE)
 N0000006: This should only be called if we are creating a new node that isn't 
 in the database. Otherwise, it's off limits.  
-N0000007: Changing the PIN should only really be done if the PIN isn't set yet.
+N0000007*: Changing the PIN should only really be done if the PIN isn't set yet.
 If it is set, than it could mess up a bunch of stuff with access permissions. 
 Make the process similar to changing the NIN, where it can only be done by a
 database operation or by doing it to a blank PIN.
@@ -27,3 +27,5 @@ to every node in a project invisibly.
 N0000011: I really do need to validate that retriveNODE either returns an error
 or a table member. I'm not quite sure why it isn't working, but it is important
 for testing's sake.
+N0000012: Createtype is if this should pull from the database or generate a new NIN.
+interface_object is the object given by main to the node that allows it to talk to the DB.
