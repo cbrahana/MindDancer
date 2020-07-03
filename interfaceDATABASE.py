@@ -7,10 +7,9 @@ Created on Tue Jun 30 11:04:53 2020
 """
 
 import sqlite3
-import ProjectErrors
 
-def createTABLES(tgt_database):
-    conn = sqlite3.connect(tgt_database) #N0000009
+def createTABLES():
+    conn = sqlite3.connect("Minddancer.db") #N0000009
     c = conn.cursor()
 
     str_two = """CREATE TABLE IF NOT EXISTS NODE (

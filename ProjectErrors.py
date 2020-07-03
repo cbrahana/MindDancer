@@ -21,4 +21,4 @@ class DATABASEretrivalERROR(ERROR):
 
 class DATABASEexportERROR(ERROR):
     def __init__(self):
-        return """Commit to Database failed for some reason."""
+        return None#"""Commit to Database failed for some reason."""

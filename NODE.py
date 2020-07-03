@@ -9,15 +9,17 @@ Creted on Sat Jun  6 14:01:23 2020
 from NODEdata import NODEdata
 import uuid
 import ProjectErrors
+import interfaceDATABASE as iDB
 import sqlite3
 
 class Node: 
-    def __init__(self,createtype,interface_object): #N0000012 
-        self.dc = NODEdata() #Create instance of Node Dataclass for storage internally
-        self.interface_obj = interface_object
+    def __init__(self,createtype): #N0000012 
+        self.dc = NODEdata(0,0,"","",[]) #Create instance of Node Dataclass for storage internally
+        self.connectDATABASE()
+        iDB.createTABLES()
         if createtype != 0: #Looking for a NIN here
-            if self.interface_obj.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists
-                temp_node_tuple = self.interface_obj.fetchNODE(createtype)
+            if self.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists
+                temp_node_tuple = self.fetchNODEfromDATABASE(createtype)
                 self.dc.NIN = temp_node_tuple[0]
                 self.ChangeNODETYPE(temp_node_tuple[1])
                 self.ChangeNAME(temp_node_tuple[2])
@@ -25,7 +27,8 @@ class Node:
             else:
                 raise ProjectErrors.DATABASEretrivalERROR
         else:
-            self.dc.NIN = self.newNIN()
+            self.dc.NIN = self.makeNIN()
+            self.exportNODEtoDATABASE()
             return None
     
     #Memory Structures      
@@ -37,15 +40,17 @@ class Node:
    
     def AddLinks(self,LINK): #N0000004 N0000005
         self.dc.LINKS.append(LINK)
-        return 0
+        return None
     
     def ChangeNAME(self,new_name):
         self.dc.NAME = new_name
-        #UpdateNode()
+        #self.exportNODEtoDATABASE() #This needs to be update
+        return None
     
     def ChangeNODETYPE(self,new_type): 
         self.dc.NODETYPE = new_type
-        #UpdateNode()
+        #self.exportNODEtoDATABASE() #This needs to be update
+        return None
     
     def returnNIN(self):
         return self.dc.NIN
@@ -67,23 +72,23 @@ class Node:
     
     def checkNODEexistance(self,tgt_NIN):
         t = (tgt_NIN,)
-        self.c.execute("SELECT * FROM NODE WHERE NIN = ?",t)
-        if self.c.fetchone() == None:
+        self.cursor.execute("SELECT * FROM NODE WHERE NIN = ?",t)
+        if self.cursor.fetchone() == None:
             return 0
         else:
             return 1
     
-    def exportNODEtoDATABASE(self):
+    def exportNODEtoDATABASE(self): #Only call this to make a new node, NOT TO UPDATE
         t = (self.dc.NIN,self.dc.NODETYPE,self.dc.NAME,self.dc.DATA)
-        self.c.execute("INSERT INTO NODE VALUES (?,?,?,?)",t)
+        self.cursor.execute("INSERT INTO NODE VALUES (?,?,?,?)",t)
         self.connection.commit()
         if self.checkNODEexistance(self.dc.NIN) != 1:
-            raise ProjectErrors.DATABASEexportError
+            raise ProjectErrors.DATABASEexportERROR
         return None
     
     def fetchNODEfromDATABASE(self,tgt_NIN):
         t = (tgt_NIN,)
-        output = self.c.execute("SELECT * FROM NODE WHERE NIN=?",t) #N0000011
+        output = self.cursor.execute("SELECT * FROM NODE WHERE NIN=?",t) #N0000011
         outtuple = output.fetchone()
         self.dc.NIN = outtuple[0]
         self.dc.NODETYPE = outtuple[1]
@@ -94,3 +99,5 @@ class Node:
     def closeDATABASE(self):
         self.connection.close()
         return None
+
+errortest = Node(0)
