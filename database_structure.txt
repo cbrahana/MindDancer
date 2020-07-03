@@ -1,0 +1,29 @@
+--Creates Table to Describe Nodes
+
+CREATE TABLE IF NOT EXISTS NODE (
+    "NIN"        INTEGER,
+    "NAME"       TINYTEXT,
+    "NODETYPE"   INTEGER  NOT NULL,
+    "DATA"       BLOB,
+
+    PRIMARY KEY (NIN)
+);
+
+CREATE TABLE IF NOT EXISTS LINK (
+    "LINK_ONE"   INT  NOT NULL,
+    "LINK_TWO"   INT  NOT NULL,
+    "LINKTYPE"  INT NOT NULL,
+    
+    PRIMARY KEY (LINK_ONE,LINK_TWO,LINK_TYPE)
+);
+
+/*I should probably create some documentation for LINK_TYPE at some point. I
+would like to be able to querry a node, and have that node return it's parent,
+child, and sibling connections.
+
+And the same for NODETYPE
+*/
+
+
+
+/*Should NODE be just metadata, and content is stored in another table? Yes*/
