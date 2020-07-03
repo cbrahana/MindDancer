@@ -14,29 +14,31 @@ import sqlite3
 
 class Node: 
     def __init__(self,createtype): #N0000012 
-        self.dc = NODEdata(0,0,"","",[]) #Create instance of Node Dataclass for storage internally
-        self.connectDATABASE()
+        self.dc = NODEdata("",0,"","",[]) #Create instance of Node Dataclass for storage internally
         iDB.createTABLES()
+        self.connectDATABASE()
         if createtype != 0: #Looking for a NIN here
             if self.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists
                 temp_node_tuple = self.fetchNODEfromDATABASE(createtype)
                 self.dc.NIN = temp_node_tuple[0]
                 self.ChangeNODETYPE(temp_node_tuple[1])
                 self.ChangeNAME(temp_node_tuple[2])
-                return None
             else:
                 raise ProjectErrors.DATABASEretrivalERROR
         else:
-            self.dc.NIN = self.makeNIN()
-            self.exportNODEtoDATABASE()
-            return None
+            self.makeNIN()
+            print(self.dc.NIN)
+            #self.exportNODEtoDATABASE()
+        return None
     
     #Memory Structures      
     def makeNIN(self): #N0000006
         if self.dc.NIN == 0:
             self.dc.NIN = uuid.uuid4()
-        else:
-            raise ProjectErrors.IDENTIFIERassignmentERROR 
+            print(self.dc.NIN)
+            return None
+        #else:
+            #raise ProjectErrors.IDENTIFIERassignmentERROR 
    
     def AddLinks(self,LINK): #N0000004 N0000005
         self.dc.LINKS.append(LINK)
@@ -79,10 +81,10 @@ class Node:
             return 1
     
     def exportNODEtoDATABASE(self): #Only call this to make a new node, NOT TO UPDATE
-        t = (self.dc.NIN,self.dc.NODETYPE,self.dc.NAME,self.dc.DATA)
+        t = (self.dc.NIN,self.dc.NODETYPE,self.dc.NAME,self.dc.DATA,)
         self.cursor.execute("INSERT INTO NODE VALUES (?,?,?,?)",t)
         self.connection.commit()
-        if self.checkNODEexistance(self.dc.NIN) != 1:
+        if self.checkNODEexistance(self.dc.NIN) == 1:
             raise ProjectErrors.DATABASEexportERROR
         return None
     

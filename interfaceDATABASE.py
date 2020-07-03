@@ -12,8 +12,9 @@ def createTABLES():
     conn = sqlite3.connect("Minddancer.db") #N0000009
     c = conn.cursor()
 
-    str_two = """CREATE TABLE IF NOT EXISTS NODE (
-    "NIN"        INTEGER,
+    str_two = """
+    CREATE TABLE IF NOT EXISTS NODE (
+    "NIN"        TEXT,
     "NODETYPE"   INTEGER  NOT NULL,
     "NAME"       TINYTEXT,
     "DATA"       BLOB,
@@ -32,6 +33,7 @@ def createTABLES():
     
     c.executescript(str_two)
     conn.commit()
+    conn.close()
     return None
 
 def dropTABLES(tgt_database): #DEBUG ONLY, EXTREMELY RISKY, DO NOT USE WITHOUT BACKUP OF DATABASE!
