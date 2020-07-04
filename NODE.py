@@ -9,27 +9,30 @@ Creted on Sat Jun  6 14:01:23 2020
 from NODEdata import NODEdata
 import uuid
 import ProjectErrors
-import interfaceDATABASE as iDB
+#import interfaceDATABASE as iDB #Move this to main when we start transistion over
 import sqlite3
 
 class Node: 
     def __init__(self,createtype): #N0000012 
         self.dc = NODEdata("",0,"","",[]) #Create instance of Node Dataclass for storage internally
-        iDB.createTABLES()
+        iDB.createTABLES() #I should move this to startup, we don't need to run it for every node, just an existance check
         self.connectDATABASE()
         if createtype != 0: #Looking for a string NIN here
-            if self.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists
+            if self.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists                
                 temp_node_tuple = self.fetchNODEfromDATABASE(createtype)
                 self.dc.NIN = temp_node_tuple[0]
-                self.ChangeNODETYPE(temp_node_tuple[1])
-                self.ChangeNAME(temp_node_tuple[2])
+                self.changeNODETYPE(temp_node_tuple[1])
+                self.changeNAME(temp_node_tuple[2])
+                self.closeDATABASE()
             else:
+                self.closeDATABASE()
                 raise ProjectErrors.DATABASEretrivalERROR
         else:
             #print(self.dc.NIN)
             self.makeNIN()
             self.dc.NIN = str(self.dc.NIN)
             self.exportNODEtoDATABASE()
+            self.closeDATABASE()
         return None
     
     #Memory Structures      
@@ -43,14 +46,14 @@ class Node:
         self.dc.LINKS.append(LINK)
         return None
     
-    def ChangeNAME(self,new_name):
+    def changeNAME(self,new_name):
         self.dc.NAME = new_name
-        #self.exportNODEtoDATABASE() #This needs to be update
+        self.updateDATABASE()
         return None
     
-    def ChangeNODETYPE(self,new_type): 
+    def changeNODETYPE(self,new_type): 
         self.dc.NODETYPE = new_type
-        #self.exportNODEtoDATABASE() #This needs to be update
+        self.updateDATABASE()
         return None
     
     def returnNIN(self):
@@ -62,7 +65,7 @@ class Node:
         #If it exists, perform deletion operation. If neither exist, raise an error.
         pass
     
-    def fetchNODEfromMEMORY(self,tgt,tgt_type):
+    def fetchNODEfromMEMORY(self):
         pass
     
     #Database Access
@@ -95,10 +98,17 @@ class Node:
         self.dc.NODETYPE = outtuple[1]
         self.dc.NAME = outtuple[2]
         self.dc.DATA = outtuple[3]
-        return None
+        return outtuple
+    
+    def updateDATABASE(self):
+        self.connectDATABASE()
+        t = (self.dc.NODETYPE,self.dc.NAME,self.dc.DATA,self.dc.NIN, )
+        self.cursor.execute("UPDATE NODE SET NODETYPE=?, NAME=?, DATA=? WHERE NIN=?",t)
+        self.closeDATABASE()
     
     def closeDATABASE(self):
         self.connection.close()
         return None
 
-et2 = Node("09b268bc-9758-4539-8d76-4899920612f7")
+et2 = Node("76e8869e-4749-4f6f-a02e-cc451f05c59e")
+et2.changeNODETYPE(100)

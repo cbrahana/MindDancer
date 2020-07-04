@@ -16,7 +16,7 @@ def createTABLES():
     CREATE TABLE IF NOT EXISTS NODE (
     "NIN"        TEXT,
     "NODETYPE"   INTEGER NOT NULL,
-    "NAME"       TINYTEXT,
+    "NAME"       TEXT,
     "DATA"       BLOB,
 
     PRIMARY KEY (NIN)
