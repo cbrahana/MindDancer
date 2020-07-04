@@ -17,6 +17,6 @@ class NODEdata:
 
 @dataclass
 class LINKdata:
-    NIN_1: int
-    NIN_2: int
+    NIN_1: str
+    NIN_2: str
     LINKTYPE: int #N0000008

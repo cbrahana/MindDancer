@@ -7,11 +7,8 @@ Created on Fri Jul  3 11:46:51 2020
 """
 from NODEdata import LINKdata
 
+
 class LINK:
     def __init__(self):
-        self.ld = LINKdata("","",0)
-        
+        self.ld = LINKdata("", "", 0)
         pass
-    
-        
-        
