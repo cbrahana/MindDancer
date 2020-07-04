@@ -15,7 +15,7 @@ def createTABLES():
     str_two = """
     CREATE TABLE IF NOT EXISTS NODE (
     "NIN"        TEXT,
-    "NODETYPE"   INTEGER  NOT NULL,
+    "NODETYPE"   INTEGER NOT NULL,
     "NAME"       TINYTEXT,
     "DATA"       BLOB,
 

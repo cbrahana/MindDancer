@@ -17,7 +17,7 @@ class Node:
         self.dc = NODEdata("",0,"","",[]) #Create instance of Node Dataclass for storage internally
         iDB.createTABLES()
         self.connectDATABASE()
-        if createtype != 0: #Looking for a NIN here
+        if createtype != 0: #Looking for a string NIN here
             if self.checkNODEexistance(createtype) == 1: #Makes sure node in DB exists
                 temp_node_tuple = self.fetchNODEfromDATABASE(createtype)
                 self.dc.NIN = temp_node_tuple[0]
@@ -26,20 +26,19 @@ class Node:
             else:
                 raise ProjectErrors.DATABASEretrivalERROR
         else:
+            #print(self.dc.NIN)
             self.makeNIN()
-            print(self.dc.NIN)
-            #self.exportNODEtoDATABASE()
+            self.dc.NIN = str(self.dc.NIN)
+            self.exportNODEtoDATABASE()
         return None
     
     #Memory Structures      
     def makeNIN(self): #N0000006
-        if self.dc.NIN == 0:
+        if self.dc.NIN == "":
             self.dc.NIN = uuid.uuid4()
-            print(self.dc.NIN)
-            return None
-        #else:
-            #raise ProjectErrors.IDENTIFIERassignmentERROR 
-   
+        else:
+            raise ProjectErrors.IDENTIFIERassignmentERROR 
+            
     def AddLinks(self,LINK): #N0000004 N0000005
         self.dc.LINKS.append(LINK)
         return None
@@ -84,8 +83,8 @@ class Node:
         t = (self.dc.NIN,self.dc.NODETYPE,self.dc.NAME,self.dc.DATA,)
         self.cursor.execute("INSERT INTO NODE VALUES (?,?,?,?)",t)
         self.connection.commit()
-        if self.checkNODEexistance(self.dc.NIN) == 1:
-            raise ProjectErrors.DATABASEexportERROR
+#        if self.checkNODEexistance(self.dc.NIN) == 1:
+#            raise ProjectErrors.DATABASEexportERROR
         return None
     
     def fetchNODEfromDATABASE(self,tgt_NIN):
@@ -102,4 +101,4 @@ class Node:
         self.connection.close()
         return None
 
-errortest = Node(0)
+et2 = Node("09b268bc-9758-4539-8d76-4899920612f7")
