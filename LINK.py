@@ -5,13 +5,13 @@ Created on Fri Jul  3 11:46:51 2020
 
 @author: collinbrahana
 """
+from NODEdata import LINKdata
 
 class LINK:
     def __init__(self):
+        self.ld = LINKdata("","",0)
+        
         pass
-    def modLINK(self,NIN1,NIN2,LINKTYPE):
-        self.NIN1 = NIN1
-        self.NIN2 = NIN2
-        self.LINKTYPE = LINKTYPE
+    
         
         
