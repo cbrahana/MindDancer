@@ -5,13 +5,17 @@ Created on Fri Jul  3 11:46:51 2020
 
 @author: collinbrahana
 """
+from NODEdata import LINKdata
+from NODE import DBapi
 
-class LINK:
+
+class LINK(DBapi):
     def __init__(self):
-        pass
-    def modLINK(self,NIN1,NIN2,LINKTYPE):
-        self.NIN1 = NIN1
-        self.NIN2 = NIN2
-        self.LINKTYPE = LINKTYPE
-        
+        self.ld = LINKdata("", "", 0)
+        return None
+
+    def setLINK(self,NIN1,NIN2,LINKTYPE):
+        self.ld.NIN_1 = NIN1
+        self.ld.NIN_2 = NIN2
+        self.ld.LINKTYPE = LINKTYPE
         

@@ -8,12 +8,13 @@ Created on Tue Jun 30 11:04:53 2020
 
 import sqlite3
 
+
 def createTABLES():
     conn = sqlite3.connect("Minddancer.db") #N0000009
     c = conn.cursor()
 
     str_two = """
-    CREATE TABLE IF NOT EXISTS NODE (
+    CREATE TABLE IF NOT EXISTS NODES (
     "NIN"        TEXT,
     "NODETYPE"   INTEGER NOT NULL,
     "NAME"       TEXT,
@@ -22,7 +23,7 @@ def createTABLES():
     PRIMARY KEY (NIN)
     );
 
-    CREATE TABLE IF NOT EXISTS LINK (
+    CREATE TABLE IF NOT EXISTS LINKS (
             "LINK_ONE"   INT  NOT NULL,
             "LINK_TWO"   INT  NOT NULL,
             "LINKTYPE"  INT NOT NULL,
